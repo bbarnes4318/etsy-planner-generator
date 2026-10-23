@@ -130,8 +130,9 @@ def tabs(ctx, page):
     dests = [cu.month_dest(y, m) for m in range(1, 13)] + [
         cu.year_dest(y), "goals", cu.habit_dest(y, page.month or 1), "notes-index"]
     x0 = ctx.W - TAB_W
-    h = (ctx.H - 2 * MARGIN) / len(TAB_LABELS)
-    for i, (label, dest) in enumerate(zip(TAB_LABELS, dests)):
+    labels = [f"M{m}" for m in range(1, 13)] + TAB_LABELS[12:] if y == "u" else TAB_LABELS
+    h = (ctx.H - 2 * MARGIN) / len(labels)
+    for i, (label, dest) in enumerate(zip(labels, dests)):
         ty = ctx.H - MARGIN - (i + 1) * h
         current = i < 12 and page.month == i + 1
         c.setFillColor(t.accent if current else t.accent_soft)
