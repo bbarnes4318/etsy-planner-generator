@@ -16,9 +16,12 @@ def verify(path):
     page_name = {p: k for k, p in names.items()}
     n = len(doc)
     targets = []  # per page: set of target page numbers
+    owner = {}    # annotation xref -> first page using it
     for pno, page in enumerate(doc):
         tgt = set()
         for ln in page.get_links():
+            if owner.setdefault(ln["xref"], pno) != pno:
+                errors.append(f"p{pno + 1}: link object shared with p{owner[ln['xref']] + 1}")
             if ln["kind"] == pymupdf.LINK_NAMED and ln.get("nameddest"):
                 p = names.get(ln["nameddest"])
             elif ln["kind"] == pymupdf.LINK_GOTO:

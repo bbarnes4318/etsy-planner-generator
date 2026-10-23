@@ -92,6 +92,6 @@ def add_named_dests(path, names):
     entries = " ".join(f"/{n} [{doc.page_xref(i)} 0 R /Fit]" for i, n in enumerate(names))
     doc.xref_set_key(doc.pdf_catalog(), "Dests", f"<<{entries}>>")
     tmp = path.with_suffix(".tmp")
-    doc.save(tmp, garbage=3, deflate=True, use_objstms=1)
+    doc.save(tmp, garbage=1, deflate=True, use_objstms=1)  # garbage>=3 merges identical links across pages; keep each page's own
     doc.close()
     tmp.replace(path)
