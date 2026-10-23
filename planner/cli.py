@@ -49,10 +49,11 @@ def cmd_mockups(a):
     sets = [a.set] if a.set else SETS
     themes = [a.theme] if a.theme else THEMES
     combos = list(itertools.product(sets, themes))
-    for s, th in combos:
-        if not pdf_path(OUT, s, th, "portrait", "mon").exists():
-            _build((s, th, "portrait", "mon"))
+    # 09_colors shows every theme's cover, so each requested set needs all themes built
+    missing = [(s, th, "portrait", "mon") for s, th in itertools.product(sets, THEMES)
+               if not pdf_path(OUT, s, th, "portrait", "mon").exists()]
     with ProcessPoolExecutor(a.jobs) as ex:
+        list(ex.map(_build, missing))
         for d in ex.map(_mockups, combos):
             print(d)
 
