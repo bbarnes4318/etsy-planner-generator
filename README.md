@@ -22,7 +22,7 @@ All output goes to `out/` (gitignored).
 |---|---|
 | `python -m planner build --set 2027 --theme sage --orientation portrait --week-start mon` | Build one PDF to `out/{set}/{theme}/Planner_{Set}_{Theme}_{Portrait\|Landscape}_{MonStart\|SunStart}.pdf`. `--orientation` defaults to portrait, `--week-start` to mon. |
 | `python -m planner build-all [--jobs N]` | Build all 96 PDFs (3 sets × 8 themes × 2 orientations × 2 week starts) in parallel, write the 24 Etsy bundles to `out/etsy/{set}_{theme}/` (4 PDFs + `How_To_Import.pdf`), then verify every PDF and print a summary table. Exits non-zero if any fail. |
-| `python -m planner mockups --set 2027 --theme sage` | Write the 7 listing images (3000×2250 PNG) to `out/mockups/{set}_{theme}/`. Omit `--set` / `--theme` to do all of them (24 × 7). Builds the portrait Monday-start PDF first if it is missing. |
+| `python -m planner mockups --set 2027 --theme sage` | Write the 9 listing images (3000×2250 PNG) to `out/mockups/{set}_{theme}/`. Omit `--set` / `--theme` to do all of them (24 × 9). Builds any missing portrait Monday-start PDFs first; `09_colors` needs every theme's PDF for the set. |
 | `python -m planner listings` | Write `out/listings.csv` (24 rows: folder, title, tags, description). |
 | `python -m planner verify out/2027/sage/Planner_2027_Sage_Portrait_MonStart.pdf [...]` | Check one or more PDFs (see below). |
 
